@@ -2,8 +2,13 @@ dp - manhwa - pas de mot de passe
 
 CREATE DATABASE manhwa;
 USE manhwa;
-CREATE TABLE liste_manhwa (
+CREATE TABLE liste_manhwa_futur (
 	id_manhwa INT PRIMARY KEY AUTO_INCREMENT,
-    nom_manhwa VARCHAR(200),
+    nom_manhwa VARCHAR(200) NOT NULL UNIQUE,
+    lien_image_manhwa VARCHAR(200)
+);
+CREATE TABLE liste_manhwa_passer (
+	id_manhwa INT PRIMARY KEY AUTO_INCREMENT,
+    nom_manhwa VARCHAR(200) NOT NULL UNIQUE,
     lien_image_manhwa VARCHAR(200)
 );
