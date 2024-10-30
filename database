@@ -1,0 +1,9 @@
+dp - manhwa - pas de mot de passe
+
+CREATE DATABASE manhwa;
+USE manhwa;
+CREATE TABLE liste_manhwa (
+	id_manhwa INT PRIMARY KEY AUTO_INCREMENT,
+    nom_manhwa VARCHAR(200),
+    lien_image_manhwa VARCHAR(200)
+);
