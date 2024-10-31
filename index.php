@@ -268,8 +268,7 @@ foreach($AllManhwaPasser as $manhwa){
         <header>
             <h1>MES MANHWA</h1>
             <form>
-                <input onkeyup="filterManhwa()" id="nom_recherche_manhwa" type="search" name="recherche" placeholder="Recherche le manhwa via son titre">
-                <input id="lancer_recherche_manhwa" type="submit" name="lancer" value="RECHERCHER">
+                <input onkeyup="filterManhwa()" id="nom_recherche_manhwa" type="search" placeholder="Recherche le manhwa via son titre">
             </form>
         </header>
 

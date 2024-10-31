@@ -1,4 +1,4 @@
-function filterManhwa() {
+function filterManhwa1() {
   let input, filter, article, titre, a;
   input = document.getElementById('nom_recherche_manhwa');
   filter = input.value.toUpperCase();
@@ -14,4 +14,7 @@ function filterManhwa() {
       article[i].style.display = 'none';
     }
   }
+}
+function filterManhwa() {
+  
 }
