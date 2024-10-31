@@ -1,14 +1,17 @@
-const input_rechercher = document.getElementById('nom_recherche_manhwa');
-const input_lancer = document.getElementById('lancer_recherche_manhwa');
+function filterManhwa() {
+  let input, filter, article, titre, a;
+  input = document.getElementById('nom_recherche_manhwa');
+  filter = input.value.toUpperCase();
+  article = document.querySelectorAll('article');
 
-const article_manhwa = document.querySelectorAll('article');
-
-const buttons = document.querySelectorAll('button');
-
-const buttonArray = [];
-
-buttons.forEach(button => {
-  buttonArray.push(button);
-});
-
-//faire la barre de recherche en JS 
+  for (let i = 0; i < article.length; i++) {
+    a = article[i].querySelector('h3');
+    titre = a.textContent || a.innerText;
+    //toUpperCase mettre input majuscule
+    if (titre.toUpperCase().indexOf(filter) > -1) {
+      article[i].style.display = "";
+    } else {
+      article[i].style.display = 'none';
+    }
+  }
+}

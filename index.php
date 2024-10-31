@@ -140,6 +140,55 @@ function readAllManhwaPasser(){
     }
 }
 
+function deleteManhwaFutur(){
+    $bdd = new PDO('mysql:host=localhost;dbname=manhwa','root','',array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+
+    $nom_manhwa = $_POST['nom_manhwa_supprime_futur'];
+    try{
+        $req=$bdd->prepare(
+            "DELETE FROM liste_manhwa_futur WHERE nom_manhwa = (?)"
+            );
+    
+        
+        $req->bindParam(1,$nom_manhwa,PDO::PARAM_STR);
+    
+        $req->execute();
+    
+        return "Le manwha $nom_manhwa a bien été supprimé !";
+    }catch(EXCEPTION $error){
+        return $error->getMessage();
+    }
+}
+
+function deleteManhwaPasser(){
+    $bdd = new PDO('mysql:host=localhost;dbname=manhwa','root','',array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+
+    $nom_manhwa = $_POST['nom_manhwa_supprime_passer'];
+    try{
+        $req=$bdd->prepare(
+            "DELETE FROM liste_manhwa_passer WHERE nom_manhwa = (?)"
+            );
+    
+        
+        $req->bindParam(1,$nom_manhwa,PDO::PARAM_STR);
+    
+        $req->execute();
+    
+        return "Le manwha $nom_manhwa a bien été supprimé !";
+    }catch(EXCEPTION $error){
+        return $error->getMessage();
+    }
+}   
+
+if (isset($_POST["supprime_manhwa_futur"])) {
+    $messageAjoutFutur = deleteManhwaFutur();
+}
+
+if (isset($_POST["supprime_manhwa_passer"])) {
+    $messageAjoutPasser = deleteManhwaPasser();
+}
+
+
 if(isset($_POST["ajouter_futur"])){
     $tab = dataTestAjoutFutur();
     if($tab['erreur'] != ''){
@@ -168,22 +217,38 @@ if(isset($_POST["ajouter_passer"])){
     }
 }
 
-function cardManhwa($manhwa){
-    return "<article style='position:relative; left:120px; border:3px solid white; color:white; padding-bottom:10px; width:300px'>
+function cardManhwaFutur($manhwa){
+    return "
+        <form action='' method='POST'>
+            <article id='{$manhwa['nom_manhwa']}' style='position:relative; border:3px solid white; color:white; padding-bottom:10px; width:300px display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;'>
                 <img style='width:300px; height:450px;' src='{$manhwa['lien_image_manhwa']}'>
-                <h3 style='text-wrap: wrap;'>{$manhwa['nom_manhwa']}</h3>
-                <button style='position:absolute; top:0px; left:250px; font-size:50px; background-color:white; border:3px solide black;border-radius:50%; width:50px; height:50px; line-height:0px; text-align:center justify-content:center;'>-</button>
-            </article>";
+                <h3 style='overflow-wrap:break-word; width:300px; height:auto;'>{$manhwa['nom_manhwa']}</h3>
+                <input type='hidden' name='nom_manhwa_supprime_futur' value='{$manhwa['nom_manhwa']}'>
+                <button type='submit' name='supprime_manhwa_futur' style='position:absolute; top:0px; left:250px; font-size:50px; background-color:white; border:3px solid black; border-radius:50%; width:50px; height:50px; line-height:0px; text-align:center; justify-content:center;'>-</button>
+            </article>
+        </form>";
+}
+
+function cardManhwaPasser($manhwa) {
+    return "
+        <form action='' method='POST'>
+            <article id='{$manhwa['nom_manhwa']}' style='position:relative; border:3px solid white; color:white; padding-bottom:10px; width:300px display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;'>
+                <img style='width:300px; height:450px;' src='{$manhwa['lien_image_manhwa']}'>
+                <h3 style='overflow-wrap:break-word; width:300px; height:auto;'>{$manhwa['nom_manhwa']}</h3>
+                <input type='hidden' name='nom_manhwa_supprime_passer' value='{$manhwa['nom_manhwa']}'>
+                <button type='submit' name='supprime_manhwa_passer' style='position:absolute; top:0px; left:250px; font-size:50px; background-color:white; border:3px solid black; border-radius:50%; width:50px; height:50px; line-height:0px; text-align:center; justify-content:center;'>-</button>
+            </article>
+        </form>";
 }
 
 $AllManhwaFutur = readAllManhwaFutur();
 foreach($AllManhwaFutur as $manhwa){
-    $listManhwaFutur .= cardManhwa($manhwa);
+    $listManhwaFutur .= cardManhwaFutur($manhwa);
 }
 
 $AllManhwaPasser = readAllManhwaPasser();
 foreach($AllManhwaPasser as $manhwa){
-    $listManhwaPasser = $listManhwaPasser.cardManhwa($manhwa);
+    $listManhwaPasser .= cardManhwaPasser($manhwa);
 }
 
 ?>
@@ -200,10 +265,11 @@ foreach($AllManhwaPasser as $manhwa){
         <header>
             <h1>SITE PERSONNEL MANHWA</h1>
             <form>
-                <input id="nom_recherche_manhwa" type="search" name="recherche" placeholder="Recherche le manhwa via son titre">
+                <input onkeyup="filterManhwa()" id="nom_recherche_manhwa" type="search" name="recherche" placeholder="Recherche le manhwa via son titre">
                 <input id="lancer_recherche_manhwa" type="submit" name="lancer" value="RECHERCHER">
             </form>
         </header>
+
         <main>
             <section>
                 <h2>Liste Manhwa que je veux lire</h2>
@@ -218,7 +284,9 @@ foreach($AllManhwaPasser as $manhwa){
                     <?php echo $messageAjoutFutur ?>
                 </form>
             </section>
+
             <div id="separator"></div>
+
             <section>
                 <h2>Liste Manhwa que j'ai lue</h2>
                 <div class="liste_manhwa">
@@ -233,7 +301,9 @@ foreach($AllManhwaPasser as $manhwa){
                 </form>
             </section>
         </main>
+
         <footer>
         </footer>
     </body>
+    <script src="./script.js"></script>
 </html>
