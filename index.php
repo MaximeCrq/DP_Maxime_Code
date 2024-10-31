@@ -260,10 +260,13 @@ foreach($AllManhwaPasser as $manhwa){
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MANHWA</title>
         <link rel="stylesheet" href="./style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Chokokutai&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     </head>
     <body>
         <header>
-            <h1>SITE PERSONNEL MANHWA</h1>
+            <h1>MES MANHWA</h1>
             <form>
                 <input onkeyup="filterManhwa()" id="nom_recherche_manhwa" type="search" name="recherche" placeholder="Recherche le manhwa via son titre">
                 <input id="lancer_recherche_manhwa" type="submit" name="lancer" value="RECHERCHER">
