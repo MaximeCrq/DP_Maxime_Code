@@ -217,14 +217,14 @@ if(isset($_POST["ajouter_passer"])){
     }
 }
 
-function cardManhwaFutur($manhwa){
+function cardManhwaFutur($manhwa) {
     return "
         <form action='' method='POST'>
-            <article id='{$manhwa['nom_manhwa']}' style='position:relative; border:3px solid white; color:white; padding-bottom:10px; width:300px display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;'>
-                <img style='width:300px; height:450px;' src='{$manhwa['lien_image_manhwa']}'>
+            <article id='{$manhwa['nom_manhwa']}' style='position:relative; border:3px solid white; color:white; padding-bottom:10px; width:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;'>
+                <img style='width:300px; height:450px;' src='{$manhwa['lien_image_manhwa']}' alt='Image de {$manhwa['nom_manhwa']}'>
                 <h3 style='overflow-wrap:break-word; width:300px; height:auto;'>{$manhwa['nom_manhwa']}</h3>
                 <input type='hidden' name='nom_manhwa_supprime_futur' value='{$manhwa['nom_manhwa']}'>
-                <button type='submit' name='supprime_manhwa_futur' style='position:absolute; top:0px; left:250px; font-size:50px; background-color:white; border:3px solid black; border-radius:50%; width:50px; height:50px; line-height:0px; text-align:center; justify-content:center;'>-</button>
+                <button type='submit' name='supprime_manhwa_futur' style='position:absolute; top:5px; right:5px; font-size:30px; background-color:white; border:2px solid black; border-radius:50%; width:40px; height:40px; text-align:center;'>-</button>
             </article>
         </form>";
 }
@@ -232,7 +232,7 @@ function cardManhwaFutur($manhwa){
 function cardManhwaPasser($manhwa) {
     return "
         <form action='' method='POST'>
-            <article id='{$manhwa['nom_manhwa']}' style='position:relative; border:3px solid white; color:white; padding-bottom:10px; width:300px display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;'>
+            <article id='{$manhwa['nom_manhwa']}' style='position:relative; border:3px solid white; color:white; padding-bottom:10px; width:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;'>
                 <img style='width:300px; height:450px;' src='{$manhwa['lien_image_manhwa']}'>
                 <h3 style='overflow-wrap:break-word; width:300px; height:auto;'>{$manhwa['nom_manhwa']}</h3>
                 <input type='hidden' name='nom_manhwa_supprime_passer' value='{$manhwa['nom_manhwa']}'>
